@@ -21,16 +21,98 @@
 .legend{background:white;padding:9px 12px;border-radius:8px;font-size:12px;line-height:1.9;box-shadow:0 1px 8px #1c324638}
 .sw{display:inline-block;width:10px;height:10px;border-radius:100%;margin-right:6px}
 @media(max-width:750px){header{padding:13px 16px}header h1{font-size:17px}.layout{display:flex;flex-direction:column;height:auto}#map{height:53dvh;order:-1}aside{max-height:47dvh} .controls{position:relative}}
+
+[hidden]{display:none!important}
+body{height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.view-switch{display:flex;gap:4px;background:#ffffff18;padding:5px;border:1px solid #ffffff25;border-radius:13px;flex-shrink:0}
+.view-switch a{display:flex;align-items:center;gap:7px;padding:10px 16px;border-radius:9px;color:#e1edf3;text-decoration:none;font-size:13px;font-weight:600;transition:background .2s,color .2s,box-shadow .2s}
+.view-switch a[aria-current="page"]{background:white;color:#123047;box-shadow:0 2px 8px #0002}
+.view-switch svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,.table-scroll:focus-visible{outline:3px solid #299681;outline-offset:3px}
+.layout{height:auto;flex:1;min-height:0;transition:grid-template-columns .24s ease}
+.view-content{min-width:0;min-height:0;position:relative;overflow:hidden}
+#map{position:relative}
+.table-view{height:auto;display:flex;flex-direction:column;padding:25px;gap:15px;background:#f4f7fb}
+.table-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.table-heading h2{font-size:22px;margin:3px 0 6px;letter-spacing:.03em}
+.eyebrow{font-size:10px;letter-spacing:.16em;color:#217e68;font-weight:700}
+.table-heading p{margin:0;color:#627487;font-size:12px;line-height:1.7}
+.result-badge{background:#e3f1ec;color:#176e52;border-radius:24px;padding:8px 13px;white-space:nowrap;font-size:13px;font-weight:600}
+.table-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#627487}
+.table-tools select{font:inherit;color:#1b3042;padding:8px;border:1px solid #ccd7e0;border-radius:8px;background:white}
+.table-scroll{overflow-x:auto;flex:none;background:white;border:1px solid #dbe5ed;border-radius:13px;box-shadow:0 4px 20px #12304705}
+.facility-table{border-collapse:separate;border-spacing:0;width:100%;min-width:960px;font-size:12px;line-height:1.7}
+.facility-table caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.facility-table th,.facility-table td{padding:15px 17px;text-align:left;border-bottom:1px solid #e7edf2;vertical-align:top}
+.facility-table thead th{position:sticky;top:0;z-index:2;background:#edf3f5;color:#526879;white-space:nowrap;font-size:11px}
+.facility-table tbody th{position:sticky;left:0;z-index:1;background:white;min-width:220px;box-shadow:3px 0 7px #12304705}
+.facility-table tbody tr:hover>td,.facility-table tbody tr:hover>th{background:#f2f9f7}
+.facility-table tbody tr:last-child>*{border-bottom:0}
+.facility-table .numeric{white-space:nowrap;font-variant-numeric:tabular-nums}
+.facility-table .room-label,.facility-table .cell-note{display:block;font-size:11px;color:#627487;font-weight:400;margin-top:4px;max-width:240px}
+.facility-table .price-value{font-weight:700;color:#176e52}
+.facility-table .address-cell{min-width:200px}
+.facility-table .detail-cell{min-width:230px}
+.facility-table a{color:#1264a3}
+.facility-table .links{margin-top:6px;gap:8px}
+.facility-table details[open]{min-width:290px;max-width:400px}
+.facility-table .map-link{display:inline-block;margin-top:8px;background:#e7f3ef;border:0;border-radius:6px;color:#176e52;padding:5px 9px;font:inherit;cursor:pointer}
+.empty-state{text-align:center;padding:45px 20px;color:#627487}
+.table-footnote{font-size:11px;color:#627487;line-height:1.7;margin:0}
+@media(max-width:1100px){.layout{grid-template-columns:310px 1fr}.table-view{padding:18px}}
+@media(max-width:750px){body{height:auto;min-height:100dvh}header{align-items:flex-start;flex-direction:column;gap:12px}header p{line-height:1.7}.view-switch{align-self:stretch}.view-switch a{flex:1;justify-content:center;padding:9px 12px}.layout{flex:auto;min-height:0}.view-content{order:-1;flex:none}#map{height:53dvh}.table-view{height:auto;min-height:0;padding:16px;gap:12px}.table-heading h2{font-size:19px}.table-heading{align-items:flex-start}.table-tools{align-items:flex-start;flex-wrap:wrap}.facility-table th,.facility-table td{padding:12px}.facility-table tbody th{min-width:165px;max-width:180px}.table-footnote{font-size:10px}body[data-view="table"] aside{order:-2;max-height:none;overflow:visible}body[data-view="table"] .controls{padding:14px 16px}body[data-view="table"] .controls .note{display:none}}
+@media(prefers-reduced-motion:reduce){.view-switch a{transition:none}}
+
+/* The comparison table flows with the page; only wide columns scroll sideways. */
+body[data-view="table"]{height:auto;min-height:100dvh}
+body[data-view="table"] .layout{flex:auto;align-items:start}
+body[data-view="table"] .view-content{overflow:visible}
+body[data-view="table"] aside{position:sticky;top:0;max-height:100dvh}
+.sidebar-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:15px 17px;border:0;border-bottom:1px solid #e7edf2;background:white;color:#1b3042;font:inherit;font-size:12px;font-weight:600;cursor:pointer;text-align:left}
+.sidebar-toggle:hover{background:#eaf4f0}
+.sidebar-toggle svg{width:19px;height:19px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .24s}
+.sidebar-content{min-width:0}
+body.sidebar-collapsed .layout{grid-template-columns:56px minmax(0,1fr)}
+body.sidebar-collapsed .sidebar-toggle{padding:16px;justify-content:center}
+body.sidebar-collapsed .sidebar-toggle span{display:none}
+body.sidebar-collapsed .sidebar-toggle svg{transform:rotate(180deg)}
+body.sidebar-collapsed aside{overflow:hidden}
+@media(max-width:750px){
+ aside{order:-2}
+ body[data-view="table"] aside{position:static;max-height:none}
+ body.sidebar-collapsed .sidebar-toggle{justify-content:space-between;padding:12px 16px}
+ body.sidebar-collapsed .sidebar-toggle span{display:inline}
+ .sidebar-toggle{padding:12px 16px}
+ .sidebar-toggle svg{transform:rotate(90deg)}
+ body.sidebar-collapsed .sidebar-toggle svg{transform:rotate(-90deg)}
+ body.sidebar-collapsed aside{max-height:none}
+}
+@media(prefers-reduced-motion:reduce){.layout,.sidebar-toggle svg{transition:none}}
+
 </style></head><body>
-<header><h1>浜松市中央区｜協働センター料理教室マップ</h1><p>中央区の協働センター全28施設を調査｜公開情報確認日：2026年10月31日｜雄踏は同館内の文化センター調理室を案内</p></header>
-<div class="layout"><aside><div class="controls">
+<header><div><h1>浜松市中央区｜協働センター料理教室マップ</h1><p>中央区の協働センター全28施設を調査｜公開情報確認日：2026年10月31日｜雄踏は同館内の文化センター調理室を案内</p></div><nav class="view-switch" aria-label="表示形式">
+<a href="#map" id="map-tab" aria-current="page" aria-controls="map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z M9 3v16 M15 5v16"/></svg>地図で探す</a>
+<a href="#table" id="table-tab" aria-controls="table-view"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18 M3 15h18 M10 4v16"/></svg>一覧表で比べる</a>
+</nav></header>
+<div class="layout"><aside aria-label="施設の検索と絞り込み">
+<button type="button" id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-content" aria-label="検索パネルを閉じる"><span>検索・絞り込みを閉じる</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6 M21 4v16"/></svg></button>
+<div id="sidebar-content" class="sidebar-content"><div class="controls">
 <input type="search" id="search" placeholder="施設名・所在地で検索" aria-label="施設検索">
-<div class="twocol"><div><label>最低収容人数</label><select id="min"><option value="0" selected>指定なし</option><option value="20">20人以上</option><option value="25">25人以上</option><option value="30">30人以上</option><option value="35">35人以上</option></select></div>
-<div><label>表示対象</label><select id="status"><option value="all">全施設</option><option value="known">定員確認済み</option><option value="unknown">設備に未確認事項あり</option><option value="closed">長期休館中</option></select></div></div>
-<div class="twocol"><div><label>利用時間（日中）</label><select id="hours"><option value="3">3時間</option><option value="4" selected>4時間</option><option value="5">5時間</option><option value="6">6時間</option></select></div><div><label>料金区分</label><select id="rate"><option value="general">一般団体</option><option value="local">施設別の認定団体</option></select></div></div>
-<div class="twocol"><div><label>背景地図</label><select id="basemap"><option value="gsi">国土地理院（標準）</option><option value="pale">国土地理院（淡色）</option><option value="esri">Esri（予備）</option></select></div><div style="display:flex;align-items:end"><span style="font-size:11px;color:#687482;padding:7px 0">背景地図が表示されない場合は切替</span></div></div>
+<div class="twocol"><div><label for="min">最低収容人数</label><select id="min"><option value="0" selected>指定なし</option><option value="20">20人以上</option><option value="25">25人以上</option><option value="30">30人以上</option><option value="35">35人以上</option></select></div>
+<div><label for="status">表示対象</label><select id="status"><option value="all">全施設</option><option value="known">定員確認済み</option><option value="unknown">設備に未確認事項あり</option><option value="closed">長期休館中</option></select></div></div>
+<div class="twocol"><div><label for="hours">利用時間（日中）</label><select id="hours"><option value="3">3時間</option><option value="4" selected>4時間</option><option value="5">5時間</option><option value="6">6時間</option></select></div><div><label for="rate">料金区分</label><select id="rate"><option value="general">一般団体</option><option value="local">施設別の認定団体</option></select></div></div>
+<div class="twocol" id="basemap-controls"><div><label for="basemap">背景地図</label><select id="basemap"><option value="gsi">国土地理院（標準）</option><option value="pale">国土地理院（淡色）</option><option value="esri">Esri（予備）</option></select></div><div style="display:flex;align-items:end"><span style="font-size:11px;color:#687482;padding:7px 0">背景地図が表示されない場合は切替</span></div></div>
 <div id="tile-warning" hidden style="font-size:12px;color:#a04030;margin-top:10px">背景地図を取得できません。施設ピンは表示できます。接続環境を確認するか、施設一覧のGoogleマップを利用してください。</div>
-<div class="note">定員・基本室料：全28件確認。調理台の台数未確認：県居・伊佐見。新津の台数は改修前資料。休館中2件。空き状況は利用日時を指定して予約先で確認してください。各施設の「詳細・出典」から根拠を開けます。</div><div class="count" id="count"></div></div><div id="list"></div></aside><div id="map"><div id="map-error" style="display:none;position:absolute;inset:0;z-index:900;background:#f5f8fb;padding:35px;text-align:center;align-content:center"><h2>地図を読み込めませんでした</h2><p>ネットワーク制限で地図ライブラリが利用できません。左側の施設一覧からGoogleマップを開けます。</p></div></div></div>
+<div class="note">定員・基本室料：全28件確認。調理台の台数未確認：県居・伊佐見。新津の台数は改修前資料。休館中2件。空き状況は利用日時を指定して予約先で確認してください。各施設の「詳細・出典」から根拠を開けます。</div><div class="count" id="count" role="status"></div></div><div id="list"></div></div></aside><main class="view-content"><div id="map" role="region" aria-label="施設マップ"><div id="map-error" style="display:none;position:absolute;inset:0;z-index:900;background:#f5f8fb;padding:35px;text-align:center;align-content:center"><h2>地図を読み込めませんでした</h2><p>ネットワーク制限で地図ライブラリが利用できません。左側の施設一覧からGoogleマップを開けます。</p></div></div>
+<section id="table-view" class="table-view" aria-labelledby="table-title" hidden>
+<div class="table-heading"><div><span class="eyebrow">FACILITY COMPARISON</span><h2 id="table-title">調理室を一覧で比べる</h2><p>定員・設備・料金を見比べて、使いたい施設を探せます。</p></div><span class="result-badge" id="table-count"></span></div>
+<div class="table-tools"><span id="table-condition"></span><label for="sort">並び順 <select id="sort"><option value="default">掲載順</option><option value="capacity">定員が多い順</option><option value="price">料金が安い順</option><option value="tables">調理台が多い順</option></select></label></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="施設比較表（幅が足りない場合は横スクロールできます）">
+<table class="facility-table"><caption>協働センター調理室の施設比較表</caption><thead><tr><th scope="col">施設名・部屋</th><th scope="col">定員</th><th scope="col">調理台</th><th scope="col" id="price-heading">基本室料</th><th scope="col">所在地・連絡先</th><th scope="col">状況・詳細</th></tr></thead><tbody id="table-body"></tbody></table>
+<div id="table-empty" class="empty-state" hidden>条件に合う施設がありません。<br>検索語や最低収容人数を変更してください。</div></div>
+<p class="table-footnote">全施設をページのスクロールで確認できます。幅が足りない場合は表を横にスクロールできます。料金は9〜18時の基本室料で、設備使用料等は含みません。休館中は通常時の参考料金です。認定団体の条件は施設ごとに異なります。詳細・出典と予約先で利用条件をご確認ください。</p>
+</section></main></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const PLACES = [
@@ -1178,7 +1260,66 @@ function eligible(p){
  if(opt.min>0&&p.capacity!=null&&p.capacity<opt.min)return false;
  return true;
 }
+function renderTable(){
+ const places=PLACES.filter(eligible);
+ const sort=el("sort").value;
+ if(sort!=="default")places.sort((a,b)=>sort==="price"?(price(a)??Infinity)-(price(b)??Infinity):(b[sort]??-1)-(a[sort]??-1));
+ el("table-body").innerHTML=places.map(p=>`<tr>
+ <th scope="row">${escapeHTML(p.name)}<span class="room-label">${escapeHTML(p.room)}</span><button type="button" class="map-link" data-place="${PLACES.indexOf(p)}">地図で見る →</button></th>
+ <td class="numeric">${p.capacity==null?"未確認":p.capacity+"人"}</td>
+ <td class="numeric">${p.tables==null?"未確認":p.tables+"台"}${p.tableNote?`<span class="cell-note">${escapeHTML(p.tableNote)}</span>`:""}${needsCheck(p)?'<span class="cell-note">現行台数は要確認</span>':""}</td>
+ <td class="numeric"><span class="price-value">${price(p)==null?"要確認":price(p).toLocaleString("ja-JP")+"円"}</span>${opt.rate==="local"?`<span class="cell-note">${escapeHTML(p.localLabel)}</span>`:""}${p.status?'<span class="cell-note">通常時の参考料金</span>':""}</td>
+ <td class="address-cell">${escapeHTML(p.address)}<br><a href="tel:${escapeHTML(p.phone)}">${escapeHTML(p.phone)}</a></td>
+ <td class="detail-cell">${p.status?`<span class="pill closed">${escapeHTML(p.status)}</span><span class="cell-note">${escapeHTML(p.closureStart)}〜${escapeHTML(p.closureEnd)}</span>`:'<span class="cell-note">長期休館の告知なし</span>'}<div class="links"><a href="${escapeHTML(p.bookingUrl)}" target="_blank" rel="noopener">部屋案内・予約先 ↗</a></div><details><summary>詳細・出典</summary>${popup(p)}</details></td></tr>`).join("");
+ el("table-count").textContent=places.length+" / "+PLACES.length+"施設";
+ el("price-heading").textContent=`日中${opt.hours}時間の基本室料`;
+ el("table-condition").textContent=`${opt.rate==="local"?"施設別の認定団体":"一般団体"} · 日中${opt.hours}時間の料金で比較`;
+ el("table-empty").hidden=places.length>0;
+}
+el("sort").addEventListener("change",renderTable);
+el("table-body").addEventListener("click",e=>{
+ const button=e.target.closest("[data-place]");if(!button)return;
+ const p=PLACES[Number(button.dataset.place)];
+ if(!map){window.open(MAP_URL(p.name+" "+p.address),"_blank","noopener");return}
+ location.hash="map";
+ // Update the panel before Leaflet measures its size.
+ setView("map");
+ const marker=markers.get(p.name);
+ if(marker){map.setView(marker.getLatLng(),14);marker.openPopup()}
+ else{const node=[...el("list").children].find(n=>n.querySelector("strong").textContent===p.name);if(node){node.querySelector("details").open=true;node.scrollIntoView({block:"nearest"})}}
+ el("map-tab").focus({preventScroll:true});
+});
+el("sidebar-toggle").addEventListener("click",()=>{
+ const collapsed=document.body.classList.toggle("sidebar-collapsed");
+ el("sidebar-content").hidden=collapsed;
+ el("sidebar-toggle").setAttribute("aria-expanded",String(!collapsed));
+ el("sidebar-toggle").setAttribute("aria-label",collapsed?"検索パネルを開く":"検索パネルを閉じる");
+ el("sidebar-toggle").querySelector("span").textContent=collapsed?"検索・絞り込みを開く":"検索・絞り込みを閉じる";
+});
+// Keep Leaflet aligned while the panel changes the available map width.
+if(map&&typeof ResizeObserver!=="undefined"){
+ const mapResizeObserver=new ResizeObserver(()=>{if(!el("map").hidden)map.invalidateSize({pan:false})});
+ mapResizeObserver.observe(el("map"));
+}
+let activeView=null,viewAnimation=null;
+function setView(view){
+ if(view===activeView)return;
+ const previous=activeView;activeView=view;
+ if(viewAnimation)viewAnimation.cancel();
+ const isTable=view==="table";
+ document.body.dataset.view=view;
+ el("map").hidden=isTable;el("table-view").hidden=!isTable;
+ el("list").hidden=isTable;el("basemap-controls").hidden=isTable;
+ for(const key of ["map","table"]){const tab=el(key+"-tab");if(key===view)tab.setAttribute("aria-current","page");else tab.removeAttribute("aria-current")}
+ if(!isTable&&map)map.invalidateSize({pan:false});
+ const panel=el(isTable?"table-view":"map");
+ if(previous&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&panel.animate){
+ viewAnimation=panel.animate([{opacity:0,transform:`translateY(12px) translateX(${isTable?12:-12}px)`},{opacity:1,transform:"translate(0,0)"}],{duration:340,easing:"cubic-bezier(.22,1,.36,1)"});
+ }
+}
+window.addEventListener("hashchange",()=>setView(location.hash==="#table"?"table":"map"));
 function render(){
+ renderTable();
  el("list").replaceChildren();let shown=0;
  for(const p of PLACES){
   const visible=eligible(p);const marker=markers.get(p.name);
@@ -1222,6 +1363,7 @@ async function geocode(p){
 }
 if(map){const legendControl=L.control({position:"bottomright"});legendControl.onAdd=()=>{let e=L.DomUtil.create("div","legend");e.innerHTML='<span class="sw" style="background:#217e68"></span>定員確認済み<br><span class="sw" style="background:#8798a7"></span>定員未確認<br><span class="sw" style="background:#cc7854"></span>長期休館';return e;};legendControl.addTo(map);}
 render();
+setView(location.hash==="#table"?"table":"map");
 // 地図のピンは国土地理院の住所検索から順次取得します。
 if(map)Promise.allSettled(PLACES.map(geocode)).then(()=>{el("count").textContent+=" ｜位置取得完了（ピンがない施設は一覧のGoogleマップから確認）"});
 </script></body></html>
